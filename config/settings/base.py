@@ -3,6 +3,10 @@ Base settings to build other settings files upon.
 """
 import os
 
+
+
+from decouple import config
+
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  
@@ -219,7 +223,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # ------------------------------------------------------------------------------
 
 # REDIS setup
-REDIS_URL = os.environ['REDIS_URL']
+REDIS_URL = env('SECRET_KEY', default='redis://h:p58ffd8de7b4153468c49609bead33acaeb57c60f4432f925d3a302143411fb77@ec2-3-208-118-12.compute-1.amazonaws.com:13839')
 
 
 # django-channels setup
@@ -306,3 +310,15 @@ JWT_SECRET = env('SECRET_KEY', default='btv5co=+robc=9vy06*45vhb@ke@4p49(ii%_%5q
 JWT_ALGORITHM = 'HS256'
 JWT_EXP_DELTA_MINTUES = 60
 
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+
+cloudinary.config( 
+  cloud_name = "dos4bdnql", 
+  api_key = config('CLOUDINARY_KEY'),
+  api_secret = config('CLOUDINARY_SECRET_KEY')
+)
+
+
+
+API_KEY = config('API_KEY')
