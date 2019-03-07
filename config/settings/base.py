@@ -73,7 +73,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'real_estate_api.apps.accounts.AccountsConfig',
     'real_estate_api.apps.services.ServicesConfig',
-    'real_estate_api.apps.owner.MainConfig',
+    #'real_estate_api.apps.owner.MainConfig',
     'real_estate_api.apps.hotel.HotelConfig',
     'real_estate_api.apps.agent.AgentConfig',
     'real_estate_api.apps.professional.ProfessionalConfig',
