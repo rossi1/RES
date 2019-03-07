@@ -1,11 +1,12 @@
 """
 Base settings to build other settings files upon.
 """
+import os
 
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3  # (bootcamp/config/settings/base.py - 3 = bootcamp/)
-APPS_DIR = ROOT_DIR.path('bootcamp')
+ROOT_DIR = environ.Path(__file__) - 3  
+APPS_DIR = ROOT_DIR.path('real_estate_api')
 
 env = environ.Env()
 env.read_env(str(ROOT_DIR.path('.env')))
@@ -35,13 +36,6 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 
-# DATABASES
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': env.db('DATABASE_URL'),
-}
-DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -59,60 +53,50 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
     'django.contrib.admin',
-    'django.forms',
+    'django.contrib.gis',
+    'django.contrib.postgres',
+  
 ]
 THIRD_PARTY_APPS = [
-    'crispy_forms',
-    'sorl.thumbnail',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.amazon',
-    # 'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.linkedin',
-    # 'allauth.socialaccount.providers.slack',
+    'rest_framework',
+    'corsheaders',
+    'cloudinary',
     'channels',
-    'django_comments',
-    'graphene_django',
-    'markdownx',
-    'taggit',
+    'django_filters',
+    
 ]
 LOCAL_APPS = [
-    'bootcamp.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
-    'bootcamp.articles.apps.ArticlesConfig',
-    'bootcamp.messager.apps.MessagerConfig',
-    'bootcamp.news.apps.NewsConfig',
-    'bootcamp.notifications.apps.NotificationsConfig',
-    'bootcamp.qa.apps.QaConfig',
-    'bootcamp.search.apps.SearchConfig'
+    'real_estate_api.apps.main.MainConfig',
+    'real_estate_api.apps.accounts.AccountsConfig',
+    'real_estate_api.apps.services.ServicesConfig',
+    'real_estate_api.apps.owner.MainConfig',
+    'real_estate_api.apps.hotel.HotelConfig',
+    'real_estate_api.apps.agent.AgentConfig',
+    'real_estate_api.apps.professional.ProfessionalConfig',
+    'real_estate_api.apps.supplier.SupplierConfig',
+    'real_estate_api.apps.valuer.ValuerConfig',
+    'real_estate_api.apps.government.GovermentConfig',
+    'real_estate_api.apps.developer.DeveloperConfig',
+    'real_estate_api.apps.blog.BlogConfig',
+    'real_estate_api.apps.notification.NotificationConfig',
+    'real_estate_api.apps.messager.MessagerConfig',
+    
+   
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {
-    'sites': 'bootcamp.contrib.sites.migrations'
+    'sites': 'real_estate_api.contrib.sites.migrations'
 }
 
-# AUTHENTICATION
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-AUTH_USER_MODEL = 'users.User'
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = 'news:list'
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = 'account_login'
+AUTH_USER_MODEL = 'accounts.User'
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -147,6 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -211,53 +196,31 @@ TEMPLATES = [
         },
     },
 ]
-# http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# FIXTURES
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
-FIXTURE_DIRS = (
-    str(APPS_DIR.path('fixtures')),
-)
+
+
 
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
-# ADMIN
-# ------------------------------------------------------------------------------
-# Django Admin URL regex.
-ADMIN_URL = r'^admin/'
-# https://docs.djangoproject.com/en/dev/ref/settings/#admins
-# ADMINS = [
-#     ("""Vitor Freitas""", 'vitor-freitas@example.com'),
-# ]
-# https://docs.djangoproject.com/en/dev/ref/settings/#managers
-# MANAGERS = ADMINS
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-# django-allauth
-# ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool('ACCOUNT_ALLOW_REGISTRATION', True)
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_REQUIRED = True
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = 'bootcamp.users.adapters.AccountAdapter'
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'bootcamp.users.adapters.SocialAccountAdapter'
+
+
 
 
 # Your stuff...
 # ------------------------------------------------------------------------------
 
 # REDIS setup
-REDIS_URL = f'{env("REDIS_URL", default="redis://127.0.0.1:6379")}/{0}'
+REDIS_URL = os.environ['REDIS_URL']
+
 
 # django-channels setup
 ASGI_APPLICATION = 'config.routing.application'
@@ -271,7 +234,75 @@ CHANNEL_LAYERS = {
     }
 }
 
-# GraphQL settings
-GRAPHENE = {
-    'SCHEMA': 'bootcamp.schema.schema'
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
+# django rest_framework  setup
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ),
+
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+        
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
+
+# corsheaders   setup
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-token',
+    'x-TOKEN',
+    'x-Token',
+    'x_token',
+    'x_TOKEN',
+    'x_Token',
+    'x_token'
+)
+
+
+
+# JWT SETUP
+
+JWT_SECRET = env('SECRET_KEY', default='btv5co=+robc=9vy06*45vhb@ke@4p49(ii%_%5q#1$y^3p2xf')
+JWT_ALGORITHM = 'HS256'
+JWT_EXP_DELTA_MINTUES = 60
+

@@ -1,0 +1,364 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API endpoints &#8212; real estate management system 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="API endpoints" href="api_endpoints.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-endpoints">
+<h1>API endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="customer-endpoint">
+<h2>Customer endpoint<a class="headerlink" href="#customer-endpoint" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">/customer/update-notification/ (GET)</p>
+<blockquote>
+<div><p>update the current user notification status</p>
+<p>Return a dictionary of values used to paste success</p>
+<ul class="simple">
+<li>Sucess Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+<p>..note:: <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">Error</span> <span class="pre">Response</span> <span class="pre">for</span> <span class="pre">this</span> <span class="pre">endpoints</span></code></p>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>/customer/properties/ (GET)</dt>
+<dd><p class="first">–This endpoint returns all the properties that are for sale</p>
+<p>Example on how to call this endpoint with the required query_params</p>
+<p><a class="reference external" href="https://customer/properties/?127.0.0.1:8000/customer/properties/">https://customer/properties/?127.0.0.1:8000/customer/properties/</a>?bed_number=2&amp;features=yes&amp;first_price_range=200&amp;second_price_range=350</p>
+<p>this url would return all aparment/house property based on the user filter choice,
+if those query_params werent provided by default it returns all properties</p>
+<ul class="simple">
+<li>Response</li>
+<li>count - the total number of object to returned if it 0 that means no data available</li>
+<li>next - this would be used to determine if there are still objects left in the paginated list by default it is equal to null that means no next url to call</li>
+<li>previous - this would be used to determine if there are still objects left in the previous url in the paginated list by default it is equal to null that means no previous url to call</li>
+<li>result - this returns a list of dictionary of all object data being requested, for this endpoint would return the following dictionary content</li>
+<li>description - properties details</li>
+<li>address - location where the property is situated</li>
+<li>image- url path to the property image</li>
+<li>city - city of where the property is sited</li>
+<li>listing - all features listing of the property</li>
+<li>beds - no of bedsroom</li>
+<li>bath - amount of bathroom available</li>
+<li>property_listing-type - returns property type ie condon, or apartment</li>
+<li>amount - returns the actual price</li>
+<li>square_feet - return square_feet of the property listed</li>
+<li>property_type - returns if the property is commercial or residential</li>
+<li>prop_stats - return a boolean value(if the property is stil available for sale or not)</li>
+<li>created -  a datetime representation of where the property was posted</li>
+<li>contact_number - contact number of the user who posted the property</li>
+<li>contact_email - contact email of the user who posted the property</li>
+<li>posted_by - who posted the property this returns owner or agent</li>
+</ul>
+<p>Example on how the data structure looks like</p>
+<p>{
+“count”: 0,
+“next”: null,
+“previous”: null,
+“results”: []</p>
+<p>} – this typically means no object</p>
+<p>if there were object available it would look like</p>
+<p>{
+“count”: 3,
+“next”: “<a class="reference external" href="http://127.0.0.1:8000/customer/properties/?page=2&amp;bed_number=2&amp;features=yes&amp;first_price_range=200&amp;second_price_range=350">http://127.0.0.1:8000/customer/properties/?page=2&amp;bed_number=2&amp;features=yes&amp;first_price_range=200&amp;second_price_range=350</a>”,
+“previous”: null,
+“results”: [</p>
+<blockquote>
+<div><blockquote>
+<div><p>{
+“id”: 2,
+“description”: “tttt”,
+“address”: “4 aka”,
+“image”: “<a class="reference external" href="http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG">http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG</a>”,
+“city”: “lagos”,
+“listings”: [</p>
+<blockquote>
+<div><p>“light”,
+“security”</p>
+</div></blockquote>
+<p>],
+“property_type”: “residential”,
+“property_listing_type”: “condo”,
+“prop_stats”: false,
+“beds”: 2,
+“baths”: 5,
+“created”: “2018-07-24T00:54:28.350084Z”,
+“contact_number”: “07036690932”,
+“amount”: “200”,
+“square_feet”: 3303.0,
+“contact_email”: “<a class="reference external" href="mailto:emma&#37;&#52;&#48;gmail&#46;com">emma<span>&#64;</span>gmail<span>&#46;</span>com</a>”,
+“posted_by”: “property owner”</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p class="last">]</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>}</p>
+<ul>
+<li><p class="first">/customer/search-property/ (GET)</p>
+<blockquote>
+<div><blockquote>
+<div><p>This endpoint returns all details about the item being requested for</p>
+<ul class="simple">
+<li>this endpoint requires a query_params called search</li>
+</ul>
+<p>Example on how this endpoint should be called</p>
+<p><a class="reference external" href="http://127.0.0.1:8000/customer/search-property/?search=lagos">http://127.0.0.1:8000/customer/search-property/?search=lagos</a></p>
+<p>The search params take either the city or address of the property</p>
+</div></blockquote>
+<ul class="simple">
+<li>Response</li>
+<li>count - the total number of object to returned if it 0 that means no data available</li>
+<li>next - this would be used to determine if there are still objects left in the paginated list by default it is equal to null that means no next url to call</li>
+<li>previous - this would be used to determine if there are still objects left in the previous url in the paginated list by default it is equal to null that means no previous url to call</li>
+<li>result - this returns a list of dictionary of all object data being requested, for this endpoint would return the following dictionary content</li>
+</ul>
+<p>Example on how the data structure looks like</p>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">“count”: 1,
+“next”: null,
+“previous”: null,
+“results”: [</p>
+<blockquote>
+<div><p>{
+values here
+}</p>
+</div></blockquote>
+<p class="last">]</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+</ul>
+<p>}</p>
+<ul>
+<li><p class="first">/customer/property/&lt;id&gt;/ (GET)</p>
+<blockquote>
+<div><p>This endpoint required the detail of the a particalur object,
+and it always returns a url params called id</p>
+<ul class="simple">
+<li>id - the id number of the requested property</li>
+<li>Response</li>
+<li>description - properties details</li>
+<li>address - location where the property is situated</li>
+<li>image - url path to the property image</li>
+<li>property_type - returns if the property is commercial or residential</li>
+<li>prop_stats - return a boolean value(if the property is stil available for sale or not)</li>
+<li>created -  a datetime representation of where the property was posted</li>
+<li>contact_number - contact number of the user who posted the property</li>
+<li>contact_email - contact email of the user who posted the property</li>
+<li>posted_by - who posted the property this returns owner or agent</li>
+</ul>
+</div></blockquote>
+<p>Example below.</p>
+<blockquote>
+<div><p>{
+“count”: 1,
+“next”: null,
+“previous”: null,
+“results”: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">“id”: 2,
+“description”: “tttt”,
+“address”: “4 aka”,
+“image”: “<a class="reference external" href="http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG">http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG</a>”,
+“city”: “lagos”,
+“listings”: [</p>
+<blockquote>
+<div><p>“light”,
+“security”</p>
+</div></blockquote>
+<p class="last">],
+“property_type”: “residential”,
+“property_listing_type”: “condo”,
+“prop_stats”: false,
+“beds”: 2,
+“baths”: 5,
+“created”: “2018-07-24T00:54:28.350084Z”,
+“contact_number”: “07036690932”,
+“amount”: “200”,
+“square_feet”: 3303.0,
+“contact_email”: “<a class="reference external" href="mailto:emma&#37;&#52;&#48;gmail&#46;com">emma<span>&#64;</span>gmail<span>&#46;</span>com</a>”,
+“posted_by”: “property owner”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+</li>
+</ul>
+<p>}</p>
+<ul>
+<li><p class="first">/customer/nearby-hotel/(GET)</p>
+<blockquote>
+<div><p>This endpoint returns all hotels based on the current location of the active user</p>
+<p>Query params</p>
+<ul class="simple">
+<li>lat  – current latitude of the user</li>
+<li>long – current longitude of the user</li>
+</ul>
+<p>if those query_params weren’t provided to the url when making a request or when an incorrect value was passed through</p>
+<p>It returns</p>
+<ul class="simple">
+<li>res – a boolean value of False</li>
+<li>message – no params / False</li>
+<li>reason - An error occured getting your current location/invalid params type</li>
+</ul>
+<p>The success Response would be in the same format as explained in the other endpoints above</p>
+<blockquote>
+<div><ul class="simple">
+<li>hotel_name = name of the hotel</li>
+<li>title -  short description of the hotel</li>
+<li>detail -  services been rendered</li>
+<li>address -  address of where the hotel is</li>
+<li>city - city where the hotel is located</li>
+<li>website -  website of the hotel default to null if not available</li>
+<li>image - image url of the hotel</li>
+<li>email - hotel contact email</li>
+<li>phone_number - contact number of the hotel</li>
+<li>phone_number2 - contact number of the hotel default to null if not available</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p class="first">/customer/nearby-professional/(GET)
+This endpoint has the same attributes of the nearby-hotel endpoint</p>
+<blockquote>
+<div><ul class="simple">
+<li>brand_name - brand name</li>
+<li>title -  a short description of the brand</li>
+<li>brand_type -  type of brand</li>
+<li>brand_address - address</li>
+<li>services_offered -  services been rendered by the brand</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>/customer/nearby-property/(GET)
+This endpoint has the same attributes of the nearby-hotel endpoint<ul>
+<li>description - properties details</li>
+<li>address - location where the property is situated</li>
+<li>image- url path to the property image</li>
+<li>city - city of where the property is sited</li>
+<li>listing - all features listing of the property</li>
+<li>beds - no of bedsroom</li>
+<li>bath - amount of bathroom available</li>
+<li>property_listing-type - returns property type ie condon, or apartment</li>
+<li>amount - returns the actual price</li>
+<li>square_feet - return square_feet of the property listed</li>
+<li>property_type - returns if the property is commercial or residential</li>
+<li>prop_stats - return a boolean value(if the property is stil available for sale or not)</li>
+<li>created -  a datetime representation of where the property was posted</li>
+<li>contact_number - contact number of the user who posted the property</li>
+<li>contact_email - contact email of the user who posted the property</li>
+<li>posted_by - who posted the property this returns owner or agent</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Each</span> <span class="pre">endpoint</span> <span class="pre">returns</span> <span class="pre">5</span> <span class="pre">item</span> <span class="pre">per</span> <span class="pre">pagination</span> <span class="pre">list</span></code></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API endpoints</a><ul>
+<li><a class="reference internal" href="#customer-endpoint">Customer endpoint</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api_endpoints.html" title="previous chapter">API endpoints</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/customer_endpoint.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, emmanuel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/customer_endpoint.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

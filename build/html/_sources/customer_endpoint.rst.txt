@@ -1,0 +1,265 @@
+API endpoints
+=============
+
+
+Customer endpoint
+-----
+
+- /customer/update-notification/ (GET)
+
+    update the current user notification status
+
+    Return a dictionary of values used to paste success 
+    
+    - Sucess Response
+
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    
+
+
+    ..note:: ``No Error Response for this endpoints``
+
+- /customer/properties/ (GET)
+    --This endpoint returns all the properties that are for sale 
+
+
+    Example on how to call this endpoint with the required query_params
+
+    https://customer/properties/?127.0.0.1:8000/customer/properties/?bed_number=2&features=yes&first_price_range=200&second_price_range=350
+    
+    this url would return all aparment/house property based on the user filter choice,
+    if those query_params werent provided by default it returns all properties
+
+
+
+    - Response
+
+    - count - the total number of object to returned if it 0 that means no data available
+    - next - this would be used to determine if there are still objects left in the paginated list by default it is equal to null that means no next url to call
+    - previous - this would be used to determine if there are still objects left in the previous url in the paginated list by default it is equal to null that means no previous url to call
+    - result - this returns a list of dictionary of all object data being requested, for this endpoint would return the following dictionary content
+
+    - description - properties details
+    - address - location where the property is situated
+    - image- url path to the property image 
+    - city - city of where the property is sited
+    - listing - all features listing of the property
+    - beds - no of bedsroom 
+    - bath - amount of bathroom available
+    - property_listing-type - returns property type ie condon, or apartment
+    - amount - returns the actual price 
+    - square_feet - return square_feet of the property listed
+    - property_type - returns if the property is commercial or residential
+    - prop_stats - return a boolean value(if the property is stil available for sale or not)
+    - created -  a datetime representation of where the property was posted
+    - contact_number - contact number of the user who posted the property
+    - contact_email - contact email of the user who posted the property
+    - posted_by - who posted the property this returns owner or agent
+
+    Example on how the data structure looks like
+
+    {
+    "count": 0,
+    "next": null,
+    "previous": null,
+    "results": []
+    
+    } -- this typically means no object
+
+    if there were object available it would look like 
+    
+    {
+    "count": 3,
+    "next": "http://127.0.0.1:8000/customer/properties/?page=2&bed_number=2&features=yes&first_price_range=200&second_price_range=350",
+    "previous": null,
+    "results": [
+            {
+            "id": 2,
+            "description": "tttt",
+            "address": "4 aka",
+            "image": "http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG",
+            "city": "lagos",
+            "listings": [
+                "light",
+                "security"
+            ],
+            "property_type": "residential",
+            "property_listing_type": "condo",
+            "prop_stats": false,
+            "beds": 2,
+            "baths": 5,
+            "created": "2018-07-24T00:54:28.350084Z",
+            "contact_number": "07036690932",
+            "amount": "200",
+            "square_feet": 3303.0,
+            "contact_email": "emma@gmail.com",
+            "posted_by": "property owner"
+        }
+    ]
+}
+
+
+
+    
+
+- /customer/search-property/ (GET)
+
+    This endpoint returns all details about the item being requested for 
+
+    - this endpoint requires a query_params called search
+
+    Example on how this endpoint should be called
+
+
+    http://127.0.0.1:8000/customer/search-property/?search=lagos
+
+    The search params take either the city or address of the property
+
+   
+   - Response
+   
+   - count - the total number of object to returned if it 0 that means no data available
+   - next - this would be used to determine if there are still objects left in the paginated list by default it is equal to null that means no next url to call
+   - previous - this would be used to determine if there are still objects left in the previous url in the paginated list by default it is equal to null that means no previous url to call
+   - result - this returns a list of dictionary of all object data being requested, for this endpoint would return the following dictionary content
+
+   
+
+   Example on how the data structure looks like 
+
+   {
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+        values here
+        }
+    ]
+}
+
+
+- /customer/property/<id>/ (GET)
+
+    This endpoint required the detail of the a particalur object,
+    and it always returns a url params called id
+
+    - id - the id number of the requested property
+
+    - Response
+
+    - description - properties details
+    - address - location where the property is situated
+    - image - url path to the property image 
+    - property_type - returns if the property is commercial or residential
+    - prop_stats - return a boolean value(if the property is stil available for sale or not)
+    - created -  a datetime representation of where the property was posted
+    - contact_number - contact number of the user who posted the property
+    - contact_email - contact email of the user who posted the property
+    - posted_by - who posted the property this returns owner or agent
+
+  Example below.
+
+    {
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 2,
+            "description": "tttt",
+            "address": "4 aka",
+            "image": "http://127.0.0.1:8000/customer/properties/media/Capture_oJx5dEU.PNG",
+            "city": "lagos",
+            "listings": [
+                "light",
+                "security"
+            ],
+            "property_type": "residential",
+            "property_listing_type": "condo",
+            "prop_stats": false,
+            "beds": 2,
+            "baths": 5,
+            "created": "2018-07-24T00:54:28.350084Z",
+            "contact_number": "07036690932",
+            "amount": "200",
+            "square_feet": 3303.0,
+            "contact_email": "emma@gmail.com",
+            "posted_by": "property owner"
+        }
+    ]
+}
+
+- /customer/nearby-hotel/(GET)
+
+   This endpoint returns all hotels based on the current location of the active user
+   
+   Query params
+
+   - lat  -- current latitude of the user
+   - long -- current longitude of the user
+
+   if those query_params weren't provided to the url when making a request or when an incorrect value was passed through
+
+   It returns
+
+   - res -- a boolean value of False
+   - message -- no params / False
+   - reason - An error occured getting your current location/invalid params type
+
+   The success Response would be in the same format as explained in the other endpoints above
+
+
+    - hotel_name = name of the hotel
+    - title -  short description of the hotel
+    - detail -  services been rendered
+    - address -  address of where the hotel is
+    - city - city where the hotel is located
+    - website -  website of the hotel default to null if not available
+    - image - image url of the hotel
+    - email - hotel contact email
+    - phone_number - contact number of the hotel
+    - phone_number2 - contact number of the hotel default to null if not available
+
+
+- /customer/nearby-professional/(GET)
+  This endpoint has the same attributes of the nearby-hotel endpoint
+
+    - brand_name - brand name
+    - title -  a short description of the brand
+    - brand_type -  type of brand
+    - brand_address - address
+    - services_offered -  services been rendered by the brand
+
+
+
+  - /customer/nearby-property/(GET)
+    This endpoint has the same attributes of the nearby-hotel endpoint
+
+    - description - properties details
+    - address - location where the property is situated
+    - image- url path to the property image 
+    - city - city of where the property is sited
+    - listing - all features listing of the property
+    - beds - no of bedsroom 
+    - bath - amount of bathroom available
+    - property_listing-type - returns property type ie condon, or apartment
+    - amount - returns the actual price 
+    - square_feet - return square_feet of the property listed
+    - property_type - returns if the property is commercial or residential
+    - prop_stats - return a boolean value(if the property is stil available for sale or not)
+    - created -  a datetime representation of where the property was posted
+    - contact_number - contact number of the user who posted the property
+    - contact_email - contact email of the user who posted the property
+    - posted_by - who posted the property this returns owner or agent
+
+
+
+
+
+
+
+
+.. note::  ``Each endpoint returns 5 item per pagination list``

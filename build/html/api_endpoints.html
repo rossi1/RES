@@ -1,0 +1,447 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API endpoints &#8212; real estate management system 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API endpoints" href="customer_endpoint.html" />
+    <link rel="prev" title="Welcome to real estate management system’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-endpoints">
+<h1>API endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">/accounts/login/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>email</li>
+<li>password</li>
+</ul>
+<p>Return a dictionary of values used to paste success or error status</p>
+<ul class="simple">
+<li>Sucess Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>notify_stat - returns a boolean either true or false ..note:: <code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">used</span> <span class="pre">to</span> <span class="pre">determine</span> <span class="pre">if</span> <span class="pre">user</span> <span class="pre">wants</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">notication</span> <span class="pre">on</span> <span class="pre">or</span> <span class="pre">off</span></code></li>
+<li>Error Response</li>
+<li>message - False</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>notify_stat - returns a boolean either true or false ..note:: <code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">used</span> <span class="pre">to</span> <span class="pre">determine</span> <span class="pre">if</span> <span class="pre">user</span> <span class="pre">wants</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">notication</span> <span class="pre">on</span> <span class="pre">or</span> <span class="pre">off</span></code></li>
+</ul>
+<p>..note:: <code class="docutils literal notranslate"><span class="pre">FOR</span> <span class="pre">EACH</span> <span class="pre">RESPONSE</span> <span class="pre">THE</span> <span class="pre">STATUS</span> <span class="pre">CODE</span> <span class="pre">IS</span> <span class="pre">ALWAYS</span> <span class="pre">200</span></code></p>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>/accounts/logout/ (GET)</dt>
+<dd><p class="first last">Response</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">/accounts/password-reset/email/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>email</li>
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - a unique token generated</li>
+<li>Error Response</li>
+<li>message - False/Email doesnt belong to any account</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/password-reset/number/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>number</li>
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - a unique token generated</li>
+<li>Error Response</li>
+<li>message - False/number not found</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+</ul>
+<p>reason - A value paste to the user</p>
+<p>..note:: <code class="docutils literal notranslate"><span class="pre">An</span> <span class="pre">OTP</span> <span class="pre">code</span> <span class="pre">will</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">user</span> <span class="pre">phone</span> <span class="pre">number</span> <span class="pre">after</span> <span class="pre">calling</span> <span class="pre">/accounts/password-reset/number/</span></code></p>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/password-reset/resend-email/ (GET)</p>
+</li>
+<li><p class="first">/accounts/password-reset/confirm-email-code/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>password</li>
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>Error Response</li>
+<li>message - False/Failed</li>
+<li>res - false  .. note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/resend-otp-code/ (GET)</p>
+<blockquote>
+<div><blockquote>
+<div><p>A query string of reset_token</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When calling this url you must paste the reset_token as a query string that was generated in the reset password number API</p>
+</div>
+<p>-Example on how to paste the query params</p>
+<p class="attribution">&mdash;<a class="reference external" href="https://accounts/password-reset/resend-otp-code/?reset_token='token">https://accounts/password-reset/resend-otp-code/?reset_token=’token</a>’</p>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>Error Response</li>
+<li>message - expired token/code not sent</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/password-reset/confirm-code/ (POST)</p>
+<blockquote>
+<div><p>-otp_code</p>
+<ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>Error Response</li>
+<li>message - expired token/code not sent</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/password-resent/confirm/ (POST)</p>
+<blockquote>
+<div><p>-email_code</p>
+<ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>Error Response</li>
+<li>message - expired token/code not sent</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>– /accounts/resend-otp-code/ (GET)</p>
+<blockquote>
+<div><blockquote>
+<div><p>A query string of   token</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When calling this url you must paste the token as a query string that was generated in the reset password number API</p>
+</div>
+<p>-Example on how to paste the query params</p>
+<p class="attribution">&mdash;<a class="reference external" href="https:accounts/password-reset/resend-otp-code/?token='token">https:accounts/password-reset/resend-otp-code/?token=’token</a>’</p>
+</div></blockquote>
+<ul class="simple">
+<li>Success Response</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>Error Response</li>
+<li>message - expired token/code not sent</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="registration">
+<h2>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">/accounts/customer-signup/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>full_name</li>
+<li>contact_address –optional</li>
+<li>user {email:user email, password:user password, contact_number:user contact_number}</li>
+<li>Example on how this endpoint should be called with post params</li>
+</ul>
+<p>content = {full_name: user full_name, contact_address: user contact_address, user {email: user email, password: user password, contact_mumberr: user contact_number}}</p>
+<blockquote>
+<div><p>..note::  <code class="docutils literal notranslate"><span class="pre">ALWAYS</span> <span class="pre">SET</span> <span class="pre">THE</span> <span class="pre">REQUEST</span> <span class="pre">HEADER</span> <span class="pre">T0</span>&#160; <span class="pre">CONTENT-TYPE-APPLICATION/JSON</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - token</li>
+<li>Error Response</li>
+<li>message - False/number exist/invalid number</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/owner-signup/ (POST)</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li>full_name</li>
+<li>contact_address –optional</li>
+<li>profile_picture –required</li>
+<li>gender – a choice field with the option of a male or female</li>
+<li>user {email:user email, password:user password, contact_number:user contact_number}</li>
+<li>Example on how this endpoint should be called with post params</li>
+</ul>
+<p>content = {full_name: user full_name, contact_address: user contact_address,</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>‘gender’: male or female,</dt>
+<dd><p class="first">user {email: user email, password: user password, contact_number:
+user contact_number}}</p>
+<blockquote>
+<div><p>..note::  <code class="docutils literal notranslate"><span class="pre">ALWAYS</span> <span class="pre">SET</span> <span class="pre">THE</span> <span class="pre">REQUEST</span> <span class="pre">HEADER</span> <span class="pre">T0</span>&#160; <span class="pre">CONTENT-TYPE-APPLICATION/JSON</span></code></p>
+</div></blockquote>
+<ul class="last simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - token</li>
+<li>Error Response</li>
+<li>message - False/number exist/invalid number</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/agent-signup/ (POST)</p>
+<blockquote>
+<div><p>this  endpoint details would be used for the following user types(developer, government, supplier, valuer)</p>
+<ul class="simple">
+<li>full_name</li>
+<li>contact_address –optional</li>
+<li>profile_picture –required</li>
+<li>cac_number - cac reg no –required</li>
+<li>office_address - user work address –optional</li>
+<li>work_identity - user id card or work id –required</li>
+<li>user {email:user email, password:user password, contact_number:user contact_number}</li>
+<li>Example on how this endpoint should be called with post params</li>
+</ul>
+<p>content = {full_name: user full_name, contact_address: user contact_address,
+profile_picture: user photo, office_address: user office address, work_id: work identity or personal identity,
+user {email: user email, password: user password, contact_number: user contact_number}}</p>
+<blockquote>
+<div><p>..note::  <code class="docutils literal notranslate"><span class="pre">ALWAYS</span> <span class="pre">SET</span> <span class="pre">THE</span> <span class="pre">REQUEST</span> <span class="pre">HEADER</span> <span class="pre">T0</span>&#160; <span class="pre">CONTENT-TYPE-APPLICATION/JSON</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - token</li>
+<li>Error Response</li>
+<li>message - False/number exist/invalid number</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/developer-signup/ (POST)</p>
+</li>
+<li><p class="first">/accounts/supplier-signup/ (POST)</p>
+</li>
+<li><p class="first">/accounts/government-signup/ (POST)</p>
+</li>
+<li><p class="first">/accounts/valuer-signup/ (POST)</p>
+</li>
+<li><p class="first">/accounts/hotel-signup/ (POST)</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li>address -  hotel address–optional,</li>
+<li>full_name - full_name</li>
+<li>profile_picture -required</li>
+<li>hotel_name - required</li>
+<li>hotel_website - optional</li>
+<li>cac_number - cac reg no –required</li>
+<li>work_identity - user id card or work id –required</li>
+<li>user {email:user email, password:user password, contact_number:user contact_number}</li>
+<li>Example on how this endpoint should be called with post params</li>
+</ul>
+<p>content = {full_name: user full_name, contact_address: user contact_address,
+hotel_name: hotel name, hotel_website: <a class="reference external" href="https://example.com">https://example.com</a> , cac_number: cac reg no,</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>work_identity: work id or personal id, profile_picture: profile_picture,</dt>
+<dd><p class="first">user {email: user email, password: user password, contact_number: user contact_number}}</p>
+<blockquote>
+<div><p>..note::  <code class="docutils literal notranslate"><span class="pre">ALWAYS</span> <span class="pre">SET</span> <span class="pre">THE</span> <span class="pre">REQUEST</span> <span class="pre">HEADER</span> <span class="pre">T0</span>&#160; <span class="pre">CONTENT-TYPE-APPLICATION/JSON</span></code></p>
+</div></blockquote>
+<ul class="last simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - token</li>
+<li>Error Response</li>
+<li>message - False/number exist/invalid number</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">/accounts/institute-signup/ (POST)</p>
+<blockquote>
+<div><ul class="simple">
+<li>institute -  institute address–optional</li>
+<li>profile_picture – required</li>
+<li>institute_name – required</li>
+<li>institute_website - optional</li>
+<li>cac_number - cac reg no – required</li>
+<li>work_identity - user id card or work id – required</li>
+<li>user {email:user email, password:user password, contact_number:user contact_number}</li>
+<li>Example on how this endpoint should be called with post params</li>
+</ul>
+<p>content = {full_name: user full_name, contact_address: user contact_address,
+institute_name: institute name, institute_website: <a class="reference external" href="https://example.com">https://example.com</a> , cac_number: cac reg no,
+work_identity: work id or personal id, profile_picture: profile_picture,
+user {email: user email, password: user password, contact_number: user contact_number}}</p>
+<blockquote>
+<div><p>..note::  <code class="docutils literal notranslate"><span class="pre">ALWAYS</span> <span class="pre">SET</span> <span class="pre">THE</span> <span class="pre">REQUEST</span> <span class="pre">HEADER</span> <span class="pre">T0</span>&#160; <span class="pre">CONTENT-TYPE-APPLICATION/JSON</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li>Success Response</li>
+<li>message - True</li>
+<li>res - true ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+<li>token - token</li>
+<li>Error Response</li>
+<li>message - False/number exist/invalid number</li>
+<li>res - false  ..note:: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">BOOLEAN</span> <span class="pre">VALUE</span></code></li>
+<li>reason - A value paste to the user</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>..note:: <code class="docutils literal notranslate"><span class="pre">FOR</span> <span class="pre">WEB</span> <span class="pre">CLIENT</span> <span class="pre">IF</span> <span class="pre">ANY</span> <span class="pre">CSRF</span> <span class="pre">ISSUE</span> <span class="pre">OCCURS</span> <span class="pre">PLEASE</span> <span class="pre">FOLLOW</span> <span class="pre">THE</span> <span class="pre">STEP</span> <span class="pre">BELOW</span> <span class="pre">TO</span> <span class="pre">RESOLVE</span> <span class="pre">IT</span></code></p>
+<p>After  successfully logging the user a csrf token would be returned in the request header,
+this csrf token would be needed to make any further post or put request to any authenticated view, that is
+to make any post request you would need to set the token in the request header like this
+<a href="#id1"><span class="problematic" id="id2">``</span></a>header = {Content-Type:application/json, X-CSRFToken: csrf token here} ``</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API endpoints</a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#registration">Registration</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to real estate management system’s documentation!</a></li>
+      <li>Next: <a href="customer_endpoint.html" title="next chapter">API endpoints</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_endpoints.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, emmanuel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/api_endpoints.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

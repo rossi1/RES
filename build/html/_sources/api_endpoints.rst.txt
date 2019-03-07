@@ -1,0 +1,340 @@
+API endpoints
+=============
+
+
+Authentication 
+-----
+
+- /accounts/login/ (POST)
+
+    - email
+    - password
+
+    Return a dictionary of values used to paste success or error status
+    
+    - Sucess Response
+
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - notify_stat - returns a boolean either true or false ..note:: ``This should be used to determine if user wants to set notication on or off``
+
+    - Error Response
+    - message - False
+    - res - false  ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - notify_stat - returns a boolean either true or false ..note:: ``This should be used to determine if user wants to set notication on or off``
+
+    ..note:: ``FOR EACH RESPONSE THE STATUS CODE IS ALWAYS 200``
+
+- /accounts/logout/ (GET)
+     Response
+
+- /accounts/password-reset/email/ (POST)
+
+    - email
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - a unique token generated 
+
+    - Error Response
+    - message - False/Email doesnt belong to any account
+    - res - false  ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+
+
+- /accounts/password-reset/number/ (POST)
+
+    - number
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - a unique token generated 
+
+    - Error Response
+    - message - False/number not found
+    - res - false  ..note:: ``A BOOLEAN VALUE``
+    
+    reason - A value paste to the user
+
+    ..note:: ``An OTP code will sent to user phone number after calling /accounts/password-reset/number/``
+
+- /accounts/password-reset/resend-email/ (GET)
+
+
+    
+- /accounts/password-reset/confirm-email-code/ (POST)
+
+    - password
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+    - Error Response
+    - message - False/Failed
+    - res - false  .. note:: ``A BOOLEAN VALUE`` 
+    - reason - A value paste to the user
+
+
+
+- /accounts/resend-otp-code/ (GET)
+
+     A query string of reset_token 
+     
+
+    .. note:: When calling this url you must paste the reset_token as a query string that was generated in the reset password number API
+    -Example on how to paste the query params
+
+    --https://accounts/password-reset/resend-otp-code/?reset_token='token'
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+    - Error Response
+    - message - expired token/code not sent
+    - res - false  ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+
+- /accounts/password-reset/confirm-code/ (POST)
+
+    -otp_code
+    
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+    - Error Response
+    - message - expired token/code not sent
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+    - reason - A value paste to the user
+
+
+- /accounts/password-resent/confirm/ (POST)
+
+    -email_code
+        
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+    - Error Response
+    - message - expired token/code not sent
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+    - reason - A value paste to the user
+
+
+
+
+-- /accounts/resend-otp-code/ (GET)
+
+    A query string of   token 
+     
+
+    .. note:: When calling this url you must paste the token as a query string that was generated in the reset password number API
+    -Example on how to paste the query params
+
+    --https:accounts/password-reset/resend-otp-code/?token='token'
+
+
+   - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+
+    - Error Response
+    - message - expired token/code not sent
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+    - reason - A value paste to the user
+
+
+     
+
+
+
+
+Registration
+------------
+
+- /accounts/customer-signup/ (POST)
+
+    - full_name
+    - contact_address --optional
+    - user {email:user email, password:user password, contact_number:user contact_number}
+    
+    - Example on how this endpoint should be called with post params
+    content = {full_name: user full_name, contact_address: user contact_address, user {email: user email, password: user password, contact_mumberr: user contact_number}}
+
+     ..note::  ``ALWAYS SET THE REQUEST HEADER T0  CONTENT-TYPE-APPLICATION/JSON``
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - token
+
+    - Error Response
+    - message - False/number exist/invalid number
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+
+    - reason - A value paste to the user
+
+
+- /accounts/owner-signup/ (POST)
+
+
+    - full_name
+    - contact_address --optional
+    - profile_picture --required
+    - gender -- a choice field with the option of a male or female
+    - user {email:user email, password:user password, contact_number:user contact_number}
+    
+    - Example on how this endpoint should be called with post params
+    content = {full_name: user full_name, contact_address: user contact_address,
+   'gender': male or female,
+    user {email: user email, password: user password, contact_number:
+    user contact_number}}
+
+     ..note::  ``ALWAYS SET THE REQUEST HEADER T0  CONTENT-TYPE-APPLICATION/JSON``
+    
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - token
+
+    - Error Response
+    - message - False/number exist/invalid number
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+
+    - reason - A value paste to the user
+
+    
+- /accounts/agent-signup/ (POST)
+
+    this  endpoint details would be used for the following user types(developer, government, supplier, valuer)
+
+
+    - full_name
+    - contact_address --optional
+    - profile_picture --required
+    - cac_number - cac reg no --required
+    - office_address - user work address --optional
+    - work_identity - user id card or work id --required
+    - user {email:user email, password:user password, contact_number:user contact_number}
+    
+    - Example on how this endpoint should be called with post params
+    content = {full_name: user full_name, contact_address: user contact_address,
+    profile_picture: user photo, office_address: user office address, work_id: work identity or personal identity,
+    user {email: user email, password: user password, contact_number: user contact_number}}
+
+     ..note::  ``ALWAYS SET THE REQUEST HEADER T0  CONTENT-TYPE-APPLICATION/JSON``
+    
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - token
+
+    - Error Response
+    - message - False/number exist/invalid number
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+
+    - reason - A value paste to the user
+
+
+- /accounts/developer-signup/ (POST)
+
+- /accounts/supplier-signup/ (POST)
+
+- /accounts/government-signup/ (POST)
+
+- /accounts/valuer-signup/ (POST)
+
+
+- /accounts/hotel-signup/ (POST)
+
+    - address -  hotel address--optional,
+    - full_name - full_name
+    - profile_picture -required
+    - hotel_name - required
+    - hotel_website - optional 
+    - cac_number - cac reg no --required
+    - work_identity - user id card or work id --required
+    - user {email:user email, password:user password, contact_number:user contact_number}
+    
+    - Example on how this endpoint should be called with post params
+    content = {full_name: user full_name, contact_address: user contact_address,
+    hotel_name: hotel name, hotel_website: https://example.com , cac_number: cac reg no,
+   work_identity: work id or personal id, profile_picture: profile_picture,
+    user {email: user email, password: user password, contact_number: user contact_number}}
+
+     ..note::  ``ALWAYS SET THE REQUEST HEADER T0  CONTENT-TYPE-APPLICATION/JSON``
+    
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - token
+
+    - Error Response
+    - message - False/number exist/invalid number
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+
+    - reason - A value paste to the user
+
+
+- /accounts/institute-signup/ (POST)
+
+    - institute -  institute address--optional
+    - profile_picture -- required
+    - institute_name -- required
+    - institute_website - optional 
+    - cac_number - cac reg no -- required
+    - work_identity - user id card or work id -- required
+    - user {email:user email, password:user password, contact_number:user contact_number}
+    
+    - Example on how this endpoint should be called with post params
+    content = {full_name: user full_name, contact_address: user contact_address,
+    institute_name: institute name, institute_website: https://example.com , cac_number: cac reg no,
+    work_identity: work id or personal id, profile_picture: profile_picture,
+    user {email: user email, password: user password, contact_number: user contact_number}}
+
+     ..note::  ``ALWAYS SET THE REQUEST HEADER T0  CONTENT-TYPE-APPLICATION/JSON``
+    
+
+    - Success Response
+    - message - True
+    - res - true ..note:: ``A BOOLEAN VALUE``
+    - reason - A value paste to the user
+    - token - token
+
+    - Error Response
+    - message - False/number exist/invalid number
+    - res - false  ..note:: ``A BOOLEAN VALUE`` 
+
+    - reason - A value paste to the user
+
+
+..note:: ``FOR WEB CLIENT IF ANY CSRF ISSUE OCCURS PLEASE FOLLOW THE STEP BELOW TO RESOLVE IT``
+
+After  successfully logging the user a csrf token would be returned in the request header,
+this csrf token would be needed to make any further post or put request to any authenticated view, that is
+to make any post request you would need to set the token in the request header like this
+``header = {Content-Type:application/json, X-CSRFToken: csrf token here} ``
+

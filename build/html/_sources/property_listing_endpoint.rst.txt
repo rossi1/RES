@@ -1,0 +1,70 @@
+API endpoints
+=============
+
+
+Property Listing  endpoint
+-----
+
+
+- /owner/create-property-listing/ (POST)
+
+  this endpoint takes the following parameters below
+
+  - description - property description
+  - address - address of where the property is located
+  - name - name of property
+  - city - city where the property is located
+  - state - state of where the property is located
+  - listing - a list of features or amenities of the property, this should be send as an array of items
+  - property_type - a choice field if it a commercial or residential property
+  - property_listing_type - a choice field specifying if the property is a condo, house or an apartment
+  - prop_stat - a boolean field to indicate if the property is still available or not
+  - beds - no of beds
+  - baths - no of baths
+  - amount - price of the property
+  - photo_one - image of the property (required)
+  - photo_two - image of the property (optional)
+  - photo_three - image of the property (optional)
+  - photo_four - image of the property (optional)
+  - photo_five - image of the property (optional)
+  - square_feet - square_feet of the property
+  - contact_number - contact_number
+  - contact_email - contact_email
+  - posted_by - a choice field indicating who posted the property (property_owner, agent, tenant)
+  - videolink - an array field containing video links to the property (optional)
+
+
+  Response
+  ====
+
+  'reason': explaining the reason
+  'res': True, 
+  'message': 'True'
+
+  Error Response
+  ====
+
+  'reason': explaining the reason
+  'res': False, 
+  'message': 'False'
+
+
+
+- /owner/view-property/ (GET)
+  this endpoint would list all property posts of the logged in user
+
+
+- /owner/update/<pk>/ (PUT)
+ this endpoint should be called with the pk value of the listing post 
+ 
+ example: owner/update/<1>/
+
+ following the parameters to update any of the field
+
+- /owner/delete/<pk>/ (DELETE)
+  this endpoint would delete the requested listing post by supplying the pk no of the post to the endpoint
+
+  example : owner/delete/1/
+
+
+   
