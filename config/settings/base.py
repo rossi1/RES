@@ -71,7 +71,6 @@ THIRD_PARTY_APPS = [
     
 ]
 LOCAL_APPS = [
-    'real_estate_api.apps.main.MainConfig',
     'real_estate_api.apps.accounts.AccountsConfig',
     'real_estate_api.apps.services.ServicesConfig',
     'real_estate_api.apps.owner.MainConfig',
@@ -317,7 +316,7 @@ cloudinary.config(
   cloud_name = "dos4bdnql", 
   api_key = config('CLOUDINARY_KEY'),
   api_secret = config('CLOUDINARY_SECRET_KEY')
-)
+)cd ..
 
 
 
