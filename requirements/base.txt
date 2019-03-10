@@ -23,6 +23,7 @@ django-filter==2.0.0
 djangorestframework==3.8.2
 docutils==0.14
 future==0.16.0
+aiohttp
 geocoder==1.38.1
 googlemaps==3.0.2
 gunicorn==19.8.1
