@@ -22,7 +22,6 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('', include('real_estate_api.main.urls')),
     path('property/', include('real_estate_api.owner.urls')),
     path('hotel/', include('real_estate_api.hotel.urls')),
     path('customer/', include('real_estate_api.customer.urls')),

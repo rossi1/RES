@@ -316,7 +316,7 @@ cloudinary.config(
   cloud_name = "dos4bdnql", 
   api_key = config('CLOUDINARY_KEY'),
   api_secret = config('CLOUDINARY_SECRET_KEY')
-)cd ..
+)
 
 
 
