@@ -1,1 +1,3 @@
-web: gunicorn config.wsgi --pythonpath real_estate_api
+   daphne: real_estate_api.asgi:application --port 8888
+   
+   worker: python manage.py runworker
